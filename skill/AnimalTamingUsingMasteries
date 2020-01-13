@@ -1,0 +1,28 @@
+//////////
+///Having searched the internet far and wide for an animal taming mastery script, and having found none suitable, I decided to make my own.
+///Make sure your taming is at least 90 and you have correctly applied the "Combat Training" mastery first, by single clicking the book for
+///its context menu, and selecting the appropriate Mastery. 
+///Simply opening the book and selecting the mastery will give you an error message, it must be done through the book's single-click context menu.
+///This script will activate the Animal Taming Combat Training Mastery repeatedly until your mana falls below 30, at which point it will attempt
+///to meditate until either your meditation attempt is successful, or your mana is above 143. Either way, whether through meditation or normal
+///mana regen, once your mana has reached 143, it will again spam the Animal Taming Combat Training Mastery until your mana falls below 30.
+///The minimum mana can be adjusted, so can the maximum: you will almost definitely need to adjust the maximum, as I set mine to 143 since my 
+///maximum mana was 145. YMMV.
+///I truly hope you enjoy this script!
+///github: @joshuaalayon
+//////////
+while @injournal 'must have at least' and not buffexists 'meditation'
+  useskill 'meditation'
+  pause 40
+endwhile
+if mana > 143
+  clearjournal
+endif
+while skill 'animal taming' < 120 and not @injournal 'must have at least'
+  if not @findobject 'pet'
+    promptalias 'pet'
+  endif
+  autotargetobject 'pet'
+  cast 'combat training'
+  pause 100
+endwhile
